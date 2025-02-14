@@ -1,0 +1,39 @@
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var productExceptSelf = function(nums) {
+    let n = nums.length;
+    let ansArray = [];
+    let preProduct = new Array(n);
+    let postProduct = new Array(n);
+    preProduct.fill(1);
+    postProduct.fill(1);
+
+    
+    // cal preProduct, preProduct[i] defines product of array ele's till 
+    // (i-1)th element.
+    
+    for(let i=1; i< n; i++) {
+    preProduct[i] = preProduct[i-1]*nums[i-1];
+    }
+    
+    // postProduct[i] defines product of array ele's till (j+1)th element from end.
+    
+    for(let j=n-2; j >= 0; j--) {
+        postProduct[j] = postProduct[j+1]*nums[j+1];
+    }
+    
+    // product for an element at ith position = preProduct[i]*postProduct[i];
+    
+    for(let k=0; k<n; k++) {
+        ansArray[k] = preProduct[k] * postProduct[k];
+    }
+    
+    console.log(ansArray.toString());
+    
+    return ansArray;
+};
+
+
+// TC : O(3N) , SC:- O(N) + O(N) + O(N) 

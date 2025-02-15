@@ -11,7 +11,7 @@ var productExceptSelf = function(nums) {
     postProduct.fill(1);
 
     
-    // cal preProduct, preProduct[i] defines product of array ele's till 
+    // calculate preProduct, preProduct[i] defines product of array ele's till 
     // (i-1)th element.
     
     for(let i=1; i< n; i++) {
@@ -37,3 +37,45 @@ var productExceptSelf = function(nums) {
 
 
 // TC : O(3N) , SC:- O(N) + O(N) + O(N) 
+
+
+
+// Most Optimal Approach with TC: O(N) and SC: O(1);
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var productExceptSelf = function(nums) {
+    let n = nums.length;
+    let ans = new Array(n);
+    ans.fill(0);
+    let count = 0 , index = 0;
+    let totalProduct = 1;
+    for(let i=0; i<n; i++) {
+        if(nums[i] == 0) { 
+            count++;
+            index = i;
+        }
+        else totalProduct = totalProduct*nums[i];
+    }
+
+
+// when count of zeros is 0
+    if(count == 0) {
+        for(let j=0; j<n; j++) {
+            ans[j] = totalProduct/nums[j];
+        }
+    }
+
+// when count of zeroes is 1
+    if(count == 1) { 
+        ans[index] = totalProduct;
+    }
+
+// when count of zeros is more then 1
+    if(count > 1) ans.fill(0);
+    
+    return ans;
+    
+};
